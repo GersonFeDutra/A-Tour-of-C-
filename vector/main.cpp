@@ -1,6 +1,35 @@
-import Vector; //get Vector’s interface
-#include <cmath>  // get the standard-library math function interface including sqrt()
+import Vector;   //get Vector’s interface
+#include <cmath> // get the standard-library math function interface including sqrt()
 #include <iostream>
+#include <stdexcept>
+
+
+void test()
+{
+	try {
+		Vector v(-27);
+	}
+	catch (std::length_error &err) {
+		// handle negative size
+	}
+	catch (std::bad_alloc &err) {
+		// Ouch! this program is not designed to handle memory exhaustion
+		std::terminate(); // terminate the program
+	}
+}
+
+void f(Vector &v)
+{
+	// ...
+	try {                // exceptions here are handled by the handler defined below
+		v[v.size()] = 7; // try to access beyond the end of v
+	}
+	catch (out_of_range &err) {
+		// ... handle range error ...
+		cerr << err.what() << '\n';
+	}
+	// ...
+}
 
 
 // get the standard-librar y math function interface including sqrt()
