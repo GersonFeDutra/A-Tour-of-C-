@@ -1,26 +1,16 @@
+#include "vector.hpp" // get Vector’s interface
+#include <cmath>      // get the standard-library math function interface including sqrt()
 #include <iostream>
 
-class Vector
-{
-public:
-	Vector(int s) : elem{new double[s]}, sz{s}
-	{
-	} // construct a Vector
-	double &operator[](int i)
-	{
-		return elem[i];
-	}
-	int size()
-	{
-		return sz;
-	}
 
-private:
-	double *elem; // pointer to the elements
-	int sz;
-	// the number of elements
-	// element access: subscripting
-};
+double sqrt_sum(Vector &v)
+{
+	double sum = 0;
+	for (int i = 0; i != v.size(); ++i)
+		sum += std::sqrt(v[i]);
+	return sum;
+}
+
 
 double read_and_sum(int s)
 {
@@ -33,6 +23,7 @@ double read_and_sum(int s)
 		sum += v[i]; // take the sum of the elements
 	return sum;
 }
+
 
 #include <random>
 int main()
