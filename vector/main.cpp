@@ -1,8 +1,9 @@
-#include "vector.hpp" // get Vector’s interface
-#include <cmath>      // get the standard-library math function interface including sqrt()
+import Vector; //get Vector’s interface
+#include <cmath>  // get the standard-library math function interface including sqrt()
 #include <iostream>
 
 
+// get the standard-librar y math function interface including sqrt()
 double sqrt_sum(Vector &v)
 {
 	double sum = 0;

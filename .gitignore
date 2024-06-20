@@ -1,2 +1,4 @@
 *.o
 *.out
+gcm.cache/
+.vscode/
