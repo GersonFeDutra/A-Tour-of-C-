@@ -46,11 +46,27 @@ void draw_all(std::vector<Shape *> &v) // draw v’s elements
 void main()
 {
 	// use shapes here
+	Shape *ps{read_shape(std::cin)};
+	if (Smiley *p = dynamic_cast<Smiley *>(ps)) { // ... does ps point to a Smiley? ...
+
+	} // ... a Smiley; use it
+	else {
+
+	} // ... not a Smiley, try something else ...
+
+
+	Shape *ps2{read_shape(std::cin)};
+	Smiley &r{dynamic_cast<Smiley &>(*ps2)}; // somewhere, catch std::bad_cast
+
+
 	std::vector<Shape *> v;
 	while (std::cin)
 		v.push_back(read_shape(std::cin));
+
+
 	draw_all(v);       // call draw() for each element
 	rotate_all(v, 45); // call rotate(45) for each element
-	for (auto p : v)   // remember to delete elements
+
+	for (auto p : v) // remember to delete elements
 		delete p;
 }
