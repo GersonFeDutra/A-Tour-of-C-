@@ -1,5 +1,6 @@
-#include <stdexcept>
 #include "vector.hpp"
+#include <algorithm>
+#include <stdexcept>
 
 Vector::Vector(int s)
 {
@@ -17,7 +18,7 @@ double &Vector::operator[](int i)
 }
 
 
-int Vector::size()
+int Vector::size() const
 {
 	return sz;
 }
@@ -25,5 +26,5 @@ int Vector::size()
 Vector::Vector(std::initializer_list<double> lst)
 	: elem{new double[lst.size()]}, sz{static_cast<int>(lst.size())}
 {
-	copy(lst.begin(), lst.end(), elem); // copy from lst into elem (§12.6)
+	std::copy(lst.begin(), lst.end(), elem); // copy from lst into elem (§12.6)
 }
