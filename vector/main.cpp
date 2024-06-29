@@ -54,6 +54,17 @@ double read_and_sum(int s)
 	return sum;
 }
 
+void fct(int n)
+{
+	Vector v(n);
+	// ... use v ...
+	{
+		Vector v2(2 * n);
+		// ... use v and v2 ...
+	} // v2 is destroyed here
+
+	// ... use v ..
+} // v is destroyed here
 
 #include <random>
 int main()
