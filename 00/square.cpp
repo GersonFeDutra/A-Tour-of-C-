@@ -5,7 +5,7 @@ using namespace std;
 
 double square(double x) // square a double precision floating-point number
 {
-	return x ∗ x;
+	return x * x;
 }
 
 void print_square(double x)
