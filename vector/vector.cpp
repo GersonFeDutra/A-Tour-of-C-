@@ -37,6 +37,27 @@ Vector& Vector::operator=(const Vector& a) // copy assignment
 }
 
 
+Vector::Vector(Vector&& a)
+	: elem{a.elem},   // "grab the elements" from a
+	sz{a.sz}
+{
+	a.elem = nullptr; // now a has no elements
+	a.sz = 0;
+}
+
+
+Vector& Vector::operator=(Vector&& a)
+{
+	delete[] elem;
+	elem = a.elem;
+	sz = a.sz;
+	a.elem = nullptr;
+	a.sz = 0;
+
+	return *this;
+}
+
+
 double& Vector::operator[](int i)
 {
 	if (i < 0 || size() <= i)

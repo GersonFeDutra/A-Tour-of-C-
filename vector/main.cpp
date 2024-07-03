@@ -75,9 +75,34 @@ Vector read(std::istream &is)
 	return v;
 }
 
+#ifdef DEBUG
+#define print_log(S) std::cerr << S;
+#else
+#define print_log(S)
+#endif
+
+Vector f()
+{
+	Vector x(1000);
+	Vector y(2000);
+	Vector z(3000);
+
+	print_log("z = x\n");
+	z = x;            // we get a copy (x might be used later in f())
+	print_log("y = move(x)\n");
+	y = std::move(x); // we get a move (move assignment)
+
+	// ... better not use x here ...
+
+	print_log("return z\n");
+	return z;         // we get a move
+}
+
 #include <random>
 int main()
 {
+	Vector v = f();
+/*
 	int result = read_and_sum(std::rand() % 10);
 	std::cout << "sum: " << result << '\n';
 
@@ -85,4 +110,5 @@ int main()
 
 	Vector v1 {1, 2, 3, 4, 5};      // v1 has 5 elements
 	Vector v2 {1.23, 3.45, 6.7, 8}; // v2 has 4 elements
+*/
 }

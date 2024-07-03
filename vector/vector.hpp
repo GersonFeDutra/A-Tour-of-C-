@@ -1,4 +1,9 @@
+#pragma once
 #include <initializer_list>
+
+#ifdef DEBUG
+#include <iostream>
+#endif
 
 class Vector
 {
@@ -10,10 +15,22 @@ public:
 
 	Vector() {}                  // default constructor
 	explicit Vector(int s);      // constructor: acquire resources
+
+#ifdef DEBUG
+	~Vector()
+	{
+		std::cerr << sz << " deleted\n";
+		delete[] elem;
+	}
+#else
 	~Vector() { delete[] elem; } // destructor: release resources
+#endif
 
 	Vector(const Vector&);            // copy constructor
 	Vector& operator=(const Vector&); // copy assignment
+
+	Vector(Vector&&);            // move constructor
+	Vector& operator=(Vector&&); // move assignment
 
 	double& operator[](int i);
 	double& operator[](int i) const;

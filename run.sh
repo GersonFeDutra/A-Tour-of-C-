@@ -1,4 +1,6 @@
 #!/bin/bash
-cd "$1"
-echo "$1"
-./run.sh
+src="$1"
+debug="$2"
+cd "$src"
+echo "$src"
+./run.sh "$debug"
