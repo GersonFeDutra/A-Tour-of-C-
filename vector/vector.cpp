@@ -13,7 +13,7 @@ public:
 	void push_back(double); // add element at end, increasing the size by one
 	                        // ...
 
-	Vector(int s) : elem{new double[s]}, sz{s} // constructor: acquire resources
+	explicit Vector(int s) : elem{new double[s]}, sz{s} // constructor: acquire resources
 	{
 		for (int i = 0; i != s; ++i) // initialize elements
 			elem[i] = 0;
@@ -47,7 +47,7 @@ double &Vector::operator[](int i)
 }
 
 
-int Vector::size()
+int Vector::size() const
 {
 	return sz;
 }
@@ -55,5 +55,5 @@ int Vector::size()
 Vector::Vector(std::initializer_list<double> lst)
 	: elem{new double[lst.size()]}, sz{static_cast<int>(lst.size())}
 {
-	copy(lst.begin(), lst.end(), elem); // copy from lst into elem (§12.6)
+	std::copy(lst.begin(), lst.end(), elem); // copy from lst into elem (§12.6)
 }
