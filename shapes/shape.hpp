@@ -1,7 +1,6 @@
 #pragma once
-struct Point
-{
-    double x, y;
+struct Point {
+	double x, y;
 };
 
 class Shape
@@ -14,5 +13,7 @@ public:
 	virtual ~Shape()
 	{
 	} // destructor
+	Shape(const Shape &) = delete; // disable copy
+	Shape &operator=(const Shape &) = delete;
 	// ...
 };

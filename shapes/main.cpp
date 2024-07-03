@@ -24,24 +24,24 @@ std::unique_ptr<Shape> read_shape(std::istream &is) // read shape descriptions f
 		case Kind::smiley:
 			// read smiley data {Point,int,Shape,Shape,Shape} into p, r, e1, e2, and m
 			Smiley *ps = new Smiley{p, r};
-			ps->add_eye(e1);
-			ps->add_eye(e2);
-			ps->set_mouth(m);
+			ps->add_eye(std::unique_ptr<Shape>(e1));
+			ps->add_eye(std::unique_ptr<Shape>(e2));
+			ps->set_mouth(std::unique_ptr<Shape>(m));
 			return std::unique_ptr<Shape>{ps};
 	}
 }
 
 void rotate_all(
-	std::vector<std::unique_ptr<Shape> *> &v, int angle) // rotate v’s elements by angle degrees
+	std::vector<std::unique_ptr<Shape>> &v, int angle) // rotate v’s elements by angle degrees
 {
-	for (auto p : v)
+	for (auto &p : v)
 		p->rotate(angle);
 }
 
 
 void draw_all(std::vector<std::unique_ptr<Shape>> &v) // draw v’s elements
 {
-	for (auto p : v)
+	for (auto &p : v)
 		p->draw();
 }
 
