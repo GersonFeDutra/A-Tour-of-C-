@@ -1,22 +1,18 @@
 class complex
 {
 public:
-	double real, imag; // representation: two doubles
+    // representation: two doubles with default value 0.0
+	double real = 0;
+    double imag = 0;
 public:
-	complex(double r, double i) : real{r}, imag{i}
-	// construct complex from two scalars
-	{
-	}
+	// construct complex from two scalars : {r,i}
+	complex(double r, double i) : real{r}, imag{i} {}
 
-	complex(double r) : real{r}, imag{0}
-	// construct complex from one scalar
-	{
-	}
+    // construct complex from one scalar : {r,0}
+	complex(double r) : real{r} {}
 
-	complex() : real{0}, imag{0}
-	// default complex: {0,0}
-	{
-	}
+	// default complex : {0,0}
+	complex() {}
 
 	complex &operator+=(complex z)
 	{
