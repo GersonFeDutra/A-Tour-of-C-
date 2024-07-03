@@ -1,11 +1,8 @@
-vector.out : main.o vector.o
-	g++ -std=c++20 -fmodules-ts  -o vector.out main.o vector.o
+vector.out : main.cpp gcm.cache/Vector.gcm
+	g++ -std=c++20 -fmodules-ts main.cpp -o vector.out
 
-main.o : main.cpp
-	g++ -std=c++20 -fmodules-ts  -c main.cpp
-
-vector.o : vector.cpp
+gcm.cache/Vector.gcm : vector.cpp
 	g++ -std=c++20 -fmodules-ts -c vector.cpp
 
 clear :
-	rm *.o *.out
+	rm -rf gcm.cache

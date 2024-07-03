@@ -24,9 +24,9 @@ void f(Vector &v)
 	try {                // exceptions here are handled by the handler defined below
 		v[v.size()] = 7; // try to access beyond the end of v
 	}
-	catch (out_of_range &err) {
+	catch (std::out_of_range &err) {
 		// ... handle range error ...
-		cerr << err.what() << '\n';
+		std::cerr << err.what() << '\n';
 	}
 	// ...
 }
@@ -66,7 +66,7 @@ void fct(int n)
 	// ... use v ..
 } // v is destroyed here
 
-Vector read(istream &is)
+Vector read(std::istream &is)
 {
 	Vector v;
 	for (double d; is >> d;) // read floating-point values into d
@@ -82,6 +82,6 @@ int main()
 
 	Vector v = read(cin); // no copy of Vector elements here
 
-	Vector v1 = {1, 2, 3, 4, 5};      // v1 has 5 elements
-	Vector v2 = {1.23, 3.45, 6.7, 8}; // v2 has 4 elements
+	Vector v1 {1, 2, 3, 4, 5};      // v1 has 5 elements
+	Vector v2 {1.23, 3.45, 6.7, 8}; // v2 has 4 elements
 }
