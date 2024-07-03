@@ -1,4 +1,5 @@
-import Vector;   //get Vector’s interface
+//import Vector;   //get Vector’s interface // import support is not complete
+#include "vector.hpp"
 #include <cmath> // get the standard-library math function interface including sqrt()
 #include <iostream>
 #include <stdexcept>
@@ -80,7 +81,7 @@ int main()
 	int result = read_and_sum(std::rand() % 10);
 	std::cout << "sum: " << result << '\n';
 
-	Vector v = read(cin); // no copy of Vector elements here
+	Vector v = read(std::cin); // no copy of Vector elements here
 
 	Vector v1 {1, 2, 3, 4, 5};      // v1 has 5 elements
 	Vector v2 {1.23, 3.45, 6.7, 8}; // v2 has 4 elements
