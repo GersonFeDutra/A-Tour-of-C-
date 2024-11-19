@@ -48,4 +48,7 @@ int main(void)
 	// use vectors
 	// write(vs);
 	f2(vs);
+
+	testing<bool>();
+	testing<const char *>();
 }
