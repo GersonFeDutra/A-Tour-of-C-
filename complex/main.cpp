@@ -13,7 +13,7 @@ void f(complex z)
 #include <iostream>
 int main()
 {
-	complex i(0, 1);
+	complex i = 1.0i;
 	complex x(3.14, 1);
 	x += i;
 	std::cout << x.real << '+' << x.imag << 'i' << '\n';

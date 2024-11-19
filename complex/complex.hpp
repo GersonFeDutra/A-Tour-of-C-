@@ -68,3 +68,8 @@ bool operator!=(complex a, complex b) // not equal
 	return !(a == b);
 }
 complex sqrt(complex); // the definition is elsewhere
+
+constexpr complex operator""i(long double arg)
+{
+	return {0, arg};
+}
