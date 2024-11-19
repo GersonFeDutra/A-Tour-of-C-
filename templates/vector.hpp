@@ -80,3 +80,14 @@ template <typename T> const T &Vector<T>::operator[](std::size_t i) const
 		throw std::out_of_range{"Vector::operator[]"};
 	return elem[i];
 }
+
+template <typename T> T* begin(Vector<T> &x)
+{
+	return x.size() ? &x[0] : nullptr;
+}
+
+template <typename T> T* end(Vector<T> &x)
+{
+	// pointer to first element or nullptr
+	return x.size() ? &x[0] + x.size() : nullptr;
+}
