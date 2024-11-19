@@ -1,12 +1,16 @@
 #pragma once
 #include <algorithm>
 #include <exception>
+#include <initializer_list>
 
 template <typename T> class Vector
 {
 private:
 	T *elem; // elem points to an array of sz elements of type T
 	int sz;
+
+public:
+	using value_type = T;
 
 public:
 	// constructor: establish invariant, acquire resources
@@ -17,6 +21,12 @@ public:
 	{
 		delete[] elem;
 	}
+
+
+	Vector2(std::initializer_list<T>); // initializer-list constructor
+
+	// [b:e) range constructor
+	template <typename Iter> Vector2(Iter b, Iter e) -> Vector2<typename Iter::value_type>;
 
 public: // ... copy and move operations ...
 	// copy
@@ -81,12 +91,12 @@ template <typename T> const T &Vector<T>::operator[](std::size_t i) const
 	return elem[i];
 }
 
-template <typename T> T* begin(Vector<T> &x)
+template <typename T> T *begin(Vector<T> &x)
 {
 	return x.size() ? &x[0] : nullptr;
 }
 
-template <typename T> T* end(Vector<T> &x)
+template <typename T> T *end(Vector<T> &x)
 {
 	// pointer to first element or nullptr
 	return x.size() ? &x[0] + x.size() : nullptr;
