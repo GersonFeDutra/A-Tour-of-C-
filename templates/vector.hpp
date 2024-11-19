@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <exception>
 
 template <typename T> class Vector
 {
@@ -9,7 +10,7 @@ private:
 
 public:
 	// constructor: establish invariant, acquire resources
-	explicit Vector(int s);
+	explicit Vector(std::size_t s);
 
 	// destructor: release resources
 	~Vector()
@@ -47,18 +48,35 @@ public: // ... copy and move operations ...
 		return *this;
 	}
 
-	T &operator[](int i)
-	{
-		return elem[i];
-	}
+	T &operator[](std::size_t i);
 
-	const T &operator[](int i) const
-	{
-		return elem[i];
-	}
+	const T &operator[](std::size_t i) const;
 
 	int size() const
 	{
 		return sz;
 	}
 };
+
+
+template <typename T> Vector<T>::Vector(std::size_t s)
+{
+	elem = new T[s];
+	sz = s;
+}
+
+
+template <typename T> T &Vector<T>::operator[](std::size_t i)
+{
+	if (i >= size())
+		throw std::out_of_range{"Vector::operator[]"};
+	return elem[i];
+}
+
+
+template <typename T> const T &Vector<T>::operator[](std::size_t i) const
+{
+	if (i >= size())
+		throw std::out_of_range{"Vector::operator[]"};
+	return elem[i];
+}
