@@ -1,4 +1,8 @@
 #include <string>
+#include <vector>
+#include <list>
+#include <iostream>
+using std::literals::string_literals::operator"" s;
 
 template <typename T> class Less_than
 {
@@ -16,7 +20,6 @@ public:
 
 void fct(int n, const std::string &s)
 {
-	using std::literals::string_literals::operator"" s;
 
 	Less_than lti{42};        // lti(i) will compare i to 42 using < (i<42)
 	Less_than lts{"Backus"s}; // lts(s) will compare s to "Backus" using < (s<"Backus")
@@ -28,8 +31,26 @@ void fct(int n, const std::string &s)
 	// ...
 }
 
+template <typename C, typename P>
+// requires Sequence<C> && Callable<P,Value_type<P>>
+int count(const C &c, P pred)
+{
+	int cnt = 0;
+	for (const auto &x : c)
+		if (pred(x))
+			++cnt;
+	return cnt;
+}
+
+void f(const std::vector<int> &vec, const std::list<std::string> &lst, int x, const std::string &s)
+{
+	std::cout << "number of values less than " << x << ": " << count(vec, Less_than{x}) << '\n';
+	std::cout << "number of values less than " << s << ": " << count(lst, Less_than{s}) << '\n';
+}
+
 
 int main(void)
 {
-    fct(2, "test");
+	fct(2, "test");
+    f(std::vector{1, 2, 3}, std::list{"a"s, "b"s, "c"s}, 2, "b");
 }
