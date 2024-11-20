@@ -46,13 +46,27 @@ void draw_all(std::vector<std::unique_ptr<Shape>> &v) // draw v’s elements
 }
 
 
+template <typename C, typename Oper>
+void for_all(C &c, Oper op) // assume that C is a container of pointers
+                            // requires Sequence<C> && Callable<Oper,Value_type<C>> (see §7.2.1)
+{
+	for (auto &x : c)
+		op(x); // pass op() a reference to each element pointed to
+}
+
+
 void user()
 {
 	std::vector<std::unique_ptr<Shape>> v;
 	while (std::cin)
 		v.push_back(read_shape(std::cin));
-	draw_all(v);       // call draw() for each element
-	rotate_all(v, 45); // call rotate(45) for each element
+
+	// draw_all(v);       // call draw() for each element
+	for_all(v, [](std::unique_ptr<Shape> &ps) { ps->draw(); });
+
+	//rotate_all(v, 45); // call rotate(45) for each element
+	for_all(v, [](std::unique_ptr<Shape> &ps) { ps->rotate(45); });
+
 } // all Shapes implicitly destroyed
 
 

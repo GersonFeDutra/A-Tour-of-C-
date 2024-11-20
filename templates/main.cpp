@@ -36,6 +36,16 @@ template <typename T> void testing()
 	static_assert(Assignable<T &, string>, "can't assign a string");
 }
 
+template <typename T> void update(T &target)
+{
+	// ...
+	if constexpr (std::is_pod<T>::value)
+		simple_and_fast(target); // for "plain old data"
+	else
+		slow_and_safe(target);
+	// ...
+}
+
 
 int main(void)
 {
