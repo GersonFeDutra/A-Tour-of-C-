@@ -8,14 +8,24 @@ concept Equality_comparable = requires(T a, T b) {
 };
 */
 
+template <typename B>
+concept Boolean = requires(B x, B y) {
+	{ x = true };
+	{ x = false };
+	{ x = (x == y) };
+	{ x = (x == y) };
+	{ x = (x != y) };
+	{ x = !x };
+	{ x = (x = y) };
+};
 
 /* version 2 - non homogeneous */
 template <typename T, typename T2 = T> // in T2 = T: T is a default template argument
 concept Equality_comparable = requires(T a, T2 b) {
-	{ a == b } -> std::same_as<bool>; // compare a T to a T2 with ==
-	{ a != b } -> std::same_as<bool>; // compare a T to a T2 with !=
-	{ b == a } -> std::same_as<bool>; // compare a T2 to a T with ==
-	{ b != a } -> std::same_as<bool>; // compare a T2 to a T with !=
+	{ a == b } -> Boolean; // compare a T to a T2 with ==
+	{ a != b } -> Boolean; // compare a T to a T2 with !=
+	{ b == a } -> Boolean; // compare a T2 to a T with ==
+	{ b != a } -> Boolean; // compare a T2 to a T with !=
 };
 
 
@@ -28,4 +38,4 @@ struct S {
 
 static_assert(Equality_comparable<int, double>); // succeeds
 static_assert(Equality_comparable<int>);         // succeeds (T2 is defaulted to int)
-//static_assert(Equality_comparable<int, std::string>); // fails
+// static_assert(Equality_comparable<int, std::string>); // fails
