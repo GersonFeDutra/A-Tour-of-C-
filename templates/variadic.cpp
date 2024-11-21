@@ -31,7 +31,7 @@ void user()
 
 	//print("first: ", 1, 2.2, "hello\n"s);
     
-    print("Hello!"s, ' ', "World!", ' ', 2017) // line ended in the print itself
+    print("Hello!"s, ' ', "World!", ' ', 2017); // line ended in the print itself
 }
 
 /* to disable the empty print case
