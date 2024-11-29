@@ -11,9 +11,9 @@
 #include <iostream>
 #include <memory>
 #include <ranges>
+#include <string>
 #include <thread>
 #include <vector>
-#include <string>
 
 
 constexpr bool is_unix()
@@ -34,7 +34,7 @@ using namespace std::literals::chrono_literals;
 
 void do_work()
 {
-	std::this_thread::sleep_for(10ms + 33us) // wait for 10 miliseconds and 33 microseconds
+	std::this_thread::sleep_for(10ms + 33us); // wait for 10 miliseconds and 33 microseconds
 }
 
 int main()
@@ -61,7 +61,7 @@ int main()
 	if (!bad_day.ok())
 		cout << bad_day << " is not a valid day\n";
 
-	sys_days t = sys_days{25y / February / 2022y}; // get a time point with the precision of days
+	sys_days t = sys_days{25d / February / 2022y}; // get a time point with the precision of days
 	t += days{7};                                  // one week after February 25, 2022
 	auto d = year_month_day{t};                    // convert the time point back to calendar
 
@@ -77,8 +77,8 @@ int main()
 	zoned_time ztp{current_zone(), tp}; // 2021-11-27 16:36:08.2085095 EST
 	cout << ztp << '\n';
 
-	const time_zone est{"Europe/Copenhagen"};
-	std::cout << zoned_time{&est, tp} << '\n'; // 2021-11-27 22:36:08.2085095 GMT+1
+	const time_zone *est = get_time_zone("Europe/Copenhagen");
+	std::cout << zoned_time{est, tp} << '\n'; // 2021-11-27 22:36:08.2085095 GMT+1
 
 	return 0;
 }
@@ -131,6 +131,13 @@ void draw_all(std::vector<Shape *> &v)
 
 namespace type_functions
 {
+
+// exemplo
+template <typename A>
+concept Allocator = requires {
+	A::allocate;
+	A::deallocate;
+};
 
 template <typename F, typename... Args> auto call(F f, Args... a, Allocator alloc)
 {
@@ -322,7 +329,8 @@ using std::rotl;
 int main()
 {
 	double val = 7.2;
-	auto x = bit_cast<uint64_t>(val); // get the bit representation of a 64-bit floating point number
+	auto x =
+		bit_cast<uint64_t>(val); // get the bit representation of a 64-bit floating point number
 	auto y = bit_cast<unit64_t>(&val); // get the bit representation of a 64-bit pointer
 
 	struct Word {
